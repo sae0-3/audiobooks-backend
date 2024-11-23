@@ -1,5 +1,6 @@
 import {
   AccessDeniedError,
+  CustomError,
   InvalidAudiobookIDError,
   MissingCredentialsError,
 } from "../helpers/CustomError.js";
@@ -17,8 +18,10 @@ export const getAudioAll = async (req, res) => {
   const { genre, search } = req.query;
 
   try {
+    if (genre && isNaN(genre)) throw new CustomError("El id del genero no es valido", 500);
+
     const startTime = Date.now();
-    const audios = !genre ? await getAudios(search) : getAudioByGenre(genre);
+    const audios = !genre ? await getAudios(search) : await getAudioByGenre(genre);
     const executionTime = Date.now() - startTime;
 
     res.status(200).json({
