@@ -102,7 +102,7 @@ export const postLibrary = async (id_account, id_audio, progress) => {
 
   try {
     const result = await pool.query(query, params);
-    console.log(result);
+    // console.log(result);
   } catch (err) {
     console.error("MODEL postLibrary:", err);
     throw pgErrors[err.code] || new InternalServerError();
@@ -114,7 +114,7 @@ export const deleteLibrary = async (id_account, id_audio) => {
 
   try {
     const result = await pool.query(query, [id_account, id_audio]);
-    console.log(result);
+    // console.log(result);
   } catch (err) {
     console.error("MODEL deleteLibrary:", err);
     throw pgErrors[err.code] || new InternalServerError();

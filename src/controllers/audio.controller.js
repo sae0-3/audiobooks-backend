@@ -101,11 +101,12 @@ export const getGenreAll = async (req, res) => {
 };
 
 export const postLibrary = async (req, res) => {
-  const { id_audio } = req.body
+  const id_audio = req.params.id
 
   try {
     if (!req.user) throw new AccessDeniedError();
     if (!id_audio) throw new MissingCredentialsError();
+    if (isNaN(id_audio)) throw new CustomError("El id del audio no es valido", 500);
 
     await postLib(req.user.id, id_audio);
 
@@ -120,11 +121,12 @@ export const postLibrary = async (req, res) => {
 };
 
 export const deleteLibrary = async (req, res) => {
-  const { id_audio } = req.body
+  const id_audio = req.params.id
 
   try {
     if (!req.user) throw new AccessDeniedError();
     if (!id_audio) throw new MissingCredentialsError();
+    if (isNaN(id_audio)) throw new CustomError("El id del audio no es valido", 500);
 
     await delLib(req.user.id, id_audio);
 
